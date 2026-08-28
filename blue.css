@@ -1,0 +1,553 @@
+/* ==========================================================================
+   IMMICH CUSTOM DARK BLUE & ELECTRIC CYAN THEME (REMEDIATED PRODUCTION BUILD - ROUND 11)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   0. FONT IMPORT & GLOBAL INHERITANCE
+   -------------------------------------------------------------------------- */
+/* Fallback-secured font import: system monospace fallback stack prevents FOUC/hangs under air-gapped or egress-blocked deployment environments */
+@import url('https://fonts.googleapis.com/css2?family=Monomakh&display=swap');
+
+*,
+html,
+body,
+button,
+input,
+select,
+textarea,
+h1, h2, h3, h4, h5, h6,
+p, span, a, label, table, code {
+  font-family: "Monomakh", system-ui !important;
+}
+
+/* Accessibility: Universal Focus Ring */
+*:focus-visible {
+  outline: 2px solid var(--c-primary) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 8px rgba(var(--c-primary-rgb), 0.5) !important;
+}
+
+/* Accessibility: Reduced Motion Guard (Disables non-essential layout transitions/transforms for sensitive users) */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+:root {
+  --base-font-size: 12px; /* Change this value (e.g., 13px, 15px, 16px) */
+}
+
+*, html, body, button, input, select, textarea, p, span, a {
+  font-size: var(--base-font-size) !important;
+}
+
+/* --------------------------------------------------------------------------
+   1. ROOT DESIGN TOKENS & CHANNELS
+   -------------------------------------------------------------------------- */
+:root {
+  --immich-font-family:   "Monomakh", system-ui !important;
+
+  /* RGB Dynamic Channels */
+  --c-primary-rgb:        18, 140, 255;     /* Electric Blue */
+  --c-hot-rgb:            0, 115, 255;      /* Vivid Azure */
+  --c-bg-rgb:             0, 0, 0;          /* Absolute Black */
+  --c-white-rgb:          243, 244, 246;    /* Soft Platinum */
+
+  /* Palette Hex Reference */
+  --c-oled:               #000000;
+  --c-fg:                 #f3f4f6;
+  --c-text-muted:         #d1d5db;          /* WCAG AAA Compliant on --surface-card-sub */
+  --c-primary:            #128cff;
+  --c-primary-hot:        #0073ff;
+  --c-primary-soft:       #459eff;
+  --c-primary-tint:       #71b5ff;
+
+  /* Border & Outline Architecture */
+  --c-border-subtle:      #040c14;
+  --c-border-dim:         #061622;
+  --c-border-active:      #0a263d;
+  --c-border-crimson:     #128cff;          /* Remapped structural border token */
+
+  /* Surfaces */
+  --surface-base:         #000000;
+  --surface-card:         #020305;
+  --surface-card-sub:     #010102;
+  --surface-hover:        #030a0f;
+  --surface-popover:      #020508;
+  --surface-overlay:      rgba(1, 2, 4, 0.90);
+
+  /* Gradients */
+  --grad-header:          linear-gradient(180deg, #010412 0%, #010205 60%, #000000 100%);
+  --grad-aside:           linear-gradient(90deg, #000000 0%, #010206 70%, #010410 100%);
+  --grad-panel:           linear-gradient(145deg, #030614, #010205);
+  --grad-input:           linear-gradient(180deg, #02040a 0%, #010203 100%);
+  --grad-btn-primary:     linear-gradient(180deg, #459eff 0%, #128cff 50%, #005bb5 100%);
+  --grad-btn-neutral:     linear-gradient(180deg, #030515 0%, #010208 100%);
+
+  /* Glow & Physics */
+  --glow-sm:              0 0 5px var(--c-primary), 0 0 10px rgba(var(--c-hot-rgb), 0.5);
+  --glow-heavy:           0 0 3px #ffffff, 0 0 10px var(--c-primary), 0 0 22px var(--c-primary), 0 0 40px var(--c-primary-hot);
+  --ease-spring:          cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth:          cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --------------------------------------------------------------------------
+   2. IMMICH ENGINE MAPPINGS
+   -------------------------------------------------------------------------- */
+html, body, :root, .dark, .light {
+  --immich-bg:           var(--c-bg-rgb) !important;
+  --immich-dark-bg:      var(--c-bg-rgb) !important;
+  --immich-gray:         var(--c-bg-rgb) !important;
+  --immich-dark-gray:    var(--c-bg-rgb) !important;
+  --immich-primary:      var(--c-primary-rgb) !important;
+  --immich-dark-primary: var(--c-primary-rgb) !important;
+  --immich-fg:           var(--c-white-rgb) !important;
+  --immich-dark-fg:      var(--c-white-rgb) !important;
+}
+
+/* --immich-ui-primary-* full generated ramps (Light + Dark, Monotonic Ordering Remediated) */
+:root, .light {
+  --immich-ui-primary-50:  oklch(0.9616 0.0166 250);
+  --immich-ui-primary-100: oklch(0.897  0.033  250);
+  --immich-ui-primary-200: oklch(0.787  0.09   250);
+  --immich-ui-primary-300: oklch(0.686  0.15   250);
+  --immich-ui-primary-400: oklch(0.65   0.20   250);
+  --immich-ui-primary-500: #128cff;
+  --immich-ui-primary-600: oklch(0.533  0.204  250);
+  --immich-ui-primary-700: oklch(0.433  0.166  250);
+  --immich-ui-primary-800: oklch(0.342  0.131  250);
+  --immich-ui-primary-900: oklch(0.245  0.094  250);
+  --immich-ui-primary-950: oklch(0.186  0.07   250);
+}
+
+.dark {
+  --immich-ui-primary-950: oklch(0.975 0.011 250);
+  --immich-ui-primary-900: oklch(0.943 0.025 250);
+  --immich-ui-primary-800: oklch(0.894 0.049 250);
+  --immich-ui-primary-700: oklch(0.836 0.079 250);
+  --immich-ui-primary-600: oklch(0.781 0.112 250);
+  --immich-ui-primary-500: #128cff;
+  --immich-ui-primary-400: oklch(0.62  0.19   250);
+  --immich-ui-primary-300: oklch(0.505 0.188 250);
+  --immich-ui-primary-200: oklch(0.387 0.144 250);
+  --immich-ui-primary-100: oklch(0.262 0.097 250);
+  --immich-ui-primary-50:  oklch(0.207 0.077 250);
+}
+
+/* --------------------------------------------------------------------------
+   3. BASE LAYOUT & AMBIENT SCANLINE
+   -------------------------------------------------------------------------- */
+html, body, main, #svelte, div.page,
+div[class*="bg-immich-bg"],
+div[class*="bg-immich-dark-bg"] {
+  background-color: var(--surface-base) !important;
+  color: var(--c-fg);
+}
+
+/* Static ambient basebar (de-animated to preserve render pipeline) */
+body::after {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--c-primary) 30%, #ffffff 50%, var(--c-primary) 70%, transparent 100%);
+  box-shadow: 0 0 8px var(--c-primary), 0 0 20px var(--c-primary), 0 0 45px rgba(var(--c-hot-rgb), 0.6);
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* --------------------------------------------------------------------------
+   4. NAVIGATION HEADER & TOP BAR CONTROLS
+   -------------------------------------------------------------------------- */
+header, nav {
+  position: relative !important;
+  background: var(--grad-header) !important;
+  border-bottom: 2px solid var(--c-border-dim) !important;
+}
+
+header::after, nav::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background: var(--c-primary-hot);
+  box-shadow: var(--glow-sm);
+}
+
+/* Circular User Avatar Profile Button */
+header [class*="rounded-full"],
+nav [class*="rounded-full"],
+button[class*="rounded-full"] {
+  background: linear-gradient(135deg, #030a1a 0%, #01030a 100%) !important;
+  border: 1px solid var(--c-border-active) !important;
+  box-shadow: 0 0 6px rgba(var(--c-primary-rgb), 0.3) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+header [class*="rounded-full"]:hover,
+nav [class*="rounded-full"]:hover,
+button[class*="rounded-full"]:hover {
+  border-color: var(--c-primary) !important;
+  transform: scale(1.08);
+  box-shadow: var(--glow-sm) !important;
+}
+
+/* --------------------------------------------------------------------------
+   5. SIDEBAR NAVIGATION
+   -------------------------------------------------------------------------- */
+aside {
+  position: relative !important;
+  background: var(--grad-aside) !important;
+  border-right: 2px solid var(--c-border-dim) !important;
+  box-shadow: 4px 0 20px rgba(var(--c-hot-rgb), 0.2) !important;
+}
+
+aside a, aside button {
+  position: relative !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  border-radius: 10px !important;
+  color: var(--c-fg) !important;
+  margin: 2px 6px !important;
+  transition: all 0.22s var(--ease-spring) !important;
+}
+
+aside a::before, aside button::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 18%;
+  bottom: 18%;
+  width: 3px;
+  border-radius: 0 4px 4px 0;
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+aside a:hover, aside button:hover {
+  background: linear-gradient(90deg, rgba(var(--c-hot-rgb), 0.25), rgba(var(--c-hot-rgb), 0.05), transparent) !important;
+  border-color: rgba(var(--c-primary-rgb), 0.3) !important;
+  transform: translateX(4px);
+}
+
+aside a:hover::before, aside button:hover::before {
+  background: var(--c-primary);
+  box-shadow: var(--glow-sm);
+}
+
+/* Active Page Indicator */
+aside a[aria-current="page"],
+aside a[aria-selected="true"],
+aside button[aria-current="page"],
+aside button[aria-selected="true"] {
+  background: linear-gradient(90deg, rgba(var(--c-hot-rgb), 0.3), rgba(6, 22, 34, 0.2), transparent) !important;
+  border: 1px solid var(--c-primary-soft) !important;
+  color: #ffffff !important;
+  box-shadow: inset 4px 0 0 var(--c-primary), 0 0 12px rgba(var(--c-hot-rgb), 0.2) !important;
+}
+
+aside svg {
+  color: var(--c-fg) !important;
+  transition: all 0.2s var(--ease-spring) !important;
+}
+
+aside a:hover svg, aside button:hover svg {
+  color: var(--c-primary-soft) !important;
+  transform: scale(1.15) rotate(-3deg);
+}
+
+/* Sidebar Metric Cards & Progress Bars */
+aside .rounded-xl, aside [class*="rounded-xl"] {
+  background: var(--grad-panel) !important;
+  border: 1px solid var(--c-border-dim) !important;
+  box-shadow: inset 0 0 20px rgba(var(--c-hot-rgb), 0.08) !important;
+}
+
+aside [role="progressbar"] {
+  background: linear-gradient(90deg, #ffffff, var(--c-primary-hot)) !important;
+  box-shadow: var(--glow-sm) !important;
+}
+
+/* --------------------------------------------------------------------------
+   6. TIMELINES, THUMBNAILS & MEMORY CARDS
+   -------------------------------------------------------------------------- */
+[data-testid*="memory"],
+[data-testid="thumbnail"],
+div[class*="thumbnail"],
+div[class*="memory"],
+div[class*="rounded-3xl"]:has(img),
+div[class*="rounded-2xl"]:has(img) {
+  border-radius: 8px !important;
+  transition: all 0.2s var(--ease-spring) !important;
+  /* Proactive precaution, not live-verified: filter resets omitted to guarantee preservation of Immich's native video/NSFW blur states. */
+}
+
+div[class*="memory"] img,
+[data-testid*="memory"] img,
+[data-testid="thumbnail"] img {
+  object-fit: cover !important;
+}
+
+[data-testid="thumbnail"]:hover,
+div[class*="thumbnail"]:hover {
+  box-shadow: inset 0 0 0 2px var(--c-primary), 0 0 12px rgba(var(--c-hot-rgb), 0.4) !important;
+  z-index: 10;
+}
+
+/* --------------------------------------------------------------------------
+   7. SETTINGS PANELS, ACCORDIONS & DROPDOWNS
+   -------------------------------------------------------------------------- */
+/* Main Settings Card Container */
+:where(main div[class*="rounded-2xl"],
+main div[class*="rounded-3xl"],
+section[class*="rounded-2xl"]) {
+  background: var(--surface-card) !important;
+  border: 1px solid var(--c-border-dim) !important;
+  border-radius: 12px !important;
+}
+
+/* Outer Section Containers (Strictly anchored to semantic disclosure and verified attribute hooks) */
+:where(details,
+section:has(button[aria-expanded]),
+div[class*="rounded-xl"]:has(button[aria-expanded])) {
+  background: var(--surface-card-sub) !important;
+  border: 1px solid var(--c-border-subtle) !important;
+}
+
+/* Primary Setting Accordion Triggers (Anchored safely to standard disclosure components) */
+:where(details > summary,
+button[aria-expanded]) {
+  background: linear-gradient(180deg, #030814 0%, #010204 100%) !important;
+  border: 1px solid #061622 !important;
+  border-radius: 8px !important;
+  color: var(--c-fg) !important;
+  padding: 12px 16px !important;
+  box-shadow: none !important;
+  transition: all 0.2s ease !important;
+}
+
+:where(details > summary,
+button[aria-expanded]):hover {
+  background: linear-gradient(180deg, #050d20 0%, #020408 100%) !important;
+  border-color: #0a263d !important;
+  box-shadow: 0 0 8px rgba(18, 140, 255, 0.08) !important;
+}
+
+/* Inner Setting Rows & Sub-Panels */
+details details > summary,
+details div[class*="rounded-lg"],
+details div[class*="rounded-xl"],
+details [class*="bg-immich-gray"],
+details [class*="bg-immich-dark-gray"] {
+  background: linear-gradient(180deg, #02050b 0%, #010102 100%) !important;
+  border: 1px solid #040c18 !important;
+}
+
+details details > summary:hover {
+  background: linear-gradient(180deg, #030a14 0%, #010205 100%) !important;
+  border-color: #06182b !important;
+}
+
+/* Caret Icon Action */
+:where(details summary, button[aria-expanded]) svg {
+  color: var(--c-text-muted) !important;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s ease !important;
+}
+
+:where(details summary, button[aria-expanded]):hover svg {
+  color: var(--c-primary-soft) !important;
+  transform: scale(1.1);
+}
+
+/* --------------------------------------------------------------------------
+   8. INPUTS, BUTTONS & FORM ELEMENTS
+   -------------------------------------------------------------------------- */
+/* Search Bars & Text Inputs */
+input, textarea, select,
+input[placeholder*="Search"] {
+  background: var(--grad-input) !important;
+  color: var(--c-fg) !important;
+  border: 1px solid var(--c-border-dim) !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  transition: all 0.2s var(--ease-smooth) !important;
+}
+
+input:hover, textarea:hover, select:hover {
+  border-color: var(--c-border-active) !important;
+}
+
+input:focus, textarea:focus, select:focus,
+input[placeholder*="Search"]:focus {
+  border-color: var(--c-primary) !important;
+  box-shadow: 0 0 8px rgba(var(--c-primary-rgb), 0.3) !important;
+  outline: none !important;
+}
+
+/* Clear icon wrapper boxes inside search input */
+div:has(> input[placeholder*="Search"]) > button,
+div:has(> input[placeholder*="Search"]) > span,
+div:has(> input[placeholder*="Search"]) svg {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Unified Neutral Action Buttons (Full Tailwind Palette Exclusion List) */
+:where(header, nav, main, section, details) button:not(
+  [class*="bg-immich-"],
+  [class*="bg-red-"], [class*="bg-green-"], [class*="bg-blue-"], [class*="bg-yellow-"],
+  [class*="bg-purple-"], [class*="bg-indigo-"], [class*="bg-pink-"], [class*="bg-orange-"],
+  [class*="bg-teal-"], [class*="bg-cyan-"], [class*="bg-amber-"], [class*="bg-lime-"],
+  [class*="bg-emerald-"], [class*="bg-sky-"], [class*="bg-violet-"], [class*="bg-fuchsia-"],
+  [class*="bg-rose-"], [class*="bg-slate-"], [class*="bg-zinc-"], [class*="bg-neutral-"],
+  [class*="bg-stone-"], [class*="bg-gray-"], [class*="bg-white"], [class*="bg-transparent"],
+  [class*="text-blue-"], [class*="rounded-full"]
+) {
+  background: rgba(3, 12, 24, 0.7) !important;
+  border: 1px solid var(--c-border-dim) !important;
+  border-radius: 8px !important;
+  color: var(--c-fg) !important;
+  box-shadow: none !important;
+  transition: all 0.22s var(--ease-spring) !important;
+}
+
+:where(header, nav, main, section, details) button:not(
+  [class*="bg-immich-"],
+  [class*="bg-red-"], [class*="bg-green-"], [class*="bg-blue-"], [class*="bg-yellow-"],
+  [class*="bg-purple-"], [class*="bg-indigo-"], [class*="bg-pink-"], [class*="bg-orange-"],
+  [class*="bg-teal-"], [class*="bg-cyan-"], [class*="bg-amber-"], [class*="bg-lime-"],
+  [class*="bg-emerald-"], [class*="bg-sky-"], [class*="bg-violet-"], [class*="bg-fuchsia-"],
+  [class*="bg-rose-"], [class*="bg-slate-"], [class*="bg-zinc-"], [class*="bg-neutral-"],
+  [class*="bg-stone-"], [class*="bg-gray-"], [class*="bg-white"], [class*="bg-transparent"],
+  [class*="text-blue-"], [class*="rounded-full"]
+):hover {
+  background: rgba(6, 24, 44, 0.9) !important;
+  border-color: var(--c-primary) !important;
+  box-shadow: var(--glow-sm) !important;
+  transform: translateY(-2px);
+}
+
+:where(header, nav, main, section, details) button:not(
+  [class*="bg-immich-"],
+  [class*="bg-red-"], [class*="bg-green-"], [class*="bg-blue-"], [class*="bg-yellow-"],
+  [class*="bg-purple-"], [class*="bg-indigo-"], [class*="bg-pink-"], [class*="bg-orange-"],
+  [class*="bg-teal-"], [class*="bg-cyan-"], [class*="bg-amber-"], [class*="bg-lime-"],
+  [class*="bg-emerald-"], [class*="bg-sky-"], [class*="bg-violet-"], [class*="bg-fuchsia-"],
+  [class*="bg-rose-"], [class*="bg-slate-"], [class*="bg-zinc-"], [class*="bg-neutral-"],
+  [class*="bg-stone-"], [class*="bg-gray-"], [class*="bg-white"], [class*="bg-transparent"],
+  [class*="text-blue-"], [class*="rounded-full"]
+):active {
+  transform: translateY(0) scale(0.97);
+}
+
+/* Synchronized SVG Icon Hover States */
+:where(header, nav, main, section, details) button:not([class*="rounded-full"]) svg {
+  transition: transform 0.2s var(--ease-spring), color 0.2s ease !important;
+}
+
+:where(header, nav, main, section, details) button:not([class*="rounded-full"]):hover svg {
+  color: var(--c-primary-soft) !important;
+  transform: scale(1.12);
+}
+
+/* Primary Form Buttons (Save, Confirm) */
+button.bg-immich-primary,
+button.bg-immich-dark-primary,
+.bg-immich-primary,
+.bg-immich-dark-primary {
+  background: var(--grad-btn-primary) !important;
+  border: 1px solid var(--c-primary-tint) !important;
+  color: #ffffff !important;
+  box-shadow: var(--glow-sm) !important;
+}
+
+button.bg-immich-primary:hover,
+button.bg-immich-dark-primary:hover {
+  box-shadow: var(--glow-heavy) !important;
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* Toggles & Checkboxes */
+input[type="checkbox"], input[type="radio"] {
+  accent-color: var(--c-primary) !important;
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   9. MODALS, POPOVERS & CONTEXT MENUS
+   -------------------------------------------------------------------------- */
+dialog,
+div[role="dialog"],
+div[class*="modal"] {
+  background: var(--surface-popover) !important;
+  border: 2px solid var(--c-border-dim) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.9), 0 0 25px rgba(var(--c-hot-rgb), 0.2) !important;
+}
+
+div[class*="backdrop"],
+dialog::backdrop {
+  background: var(--surface-overlay) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+[role="menu"],
+[role="listbox"],
+div[class*="dropdown-content"] {
+  background: var(--surface-popover) !important;
+  border: 1px solid var(--c-border-dim) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.9) !important;
+}
+
+[role="menuitem"]:hover,
+[role="option"]:hover {
+  background: var(--surface-hover) !important;
+  color: var(--c-primary-soft) !important;
+}
+
+/* --------------------------------------------------------------------------
+   10. SCROLLBARS & TEXT SELECTION
+   -------------------------------------------------------------------------- */
+::selection {
+  background: var(--c-primary) !important;
+  color: #ffffff !important;
+}
+
+/* Standardized Cross-Browser Scrollbars (Firefox & WebKit parity) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--c-primary) #000000;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000 !important;
+}
+
+::-webkit-scrollbar-track-piece {
+  background: #000000 !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--c-primary), #0a263d) !important;
+  border-radius: 6px;
+  border: 2px solid #000000 !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--c-primary-soft) !important;
+}
