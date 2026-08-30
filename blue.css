@@ -520,3 +520,19 @@ div[class*="dropdown-content"] {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--c-primary-soft) !important;
 }
+
+/* --------------------------------------------------------------------------
+   11. CONTROL BAR OVERRIDE
+   -------------------------------------------------------------------------- */
+#control-bar,
+[id="control-bar"],
+div#control-bar {
+  position: fixed !important;
+  top: 0 !important;
+  bottom: auto !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 99999 !important;
+  transform: none !important;
+}
