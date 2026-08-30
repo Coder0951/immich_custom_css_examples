@@ -1,0 +1,742 @@
+/* ==========================================================================
+   IMMICH NEON SHOWCASE THEME — FULL CUSTOM CSS FIELD DEMO
+   Built on Immich's ACTUAL --immich-ui-* tokens (see theme.css) instead of
+   custom --c- variables. Every component family gets a distinct neon color,
+   plus transitions/animations to show off everything the custom CSS field
+   in Immich (Settings > Server Settings > Theming) can do.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   0. FONT & GLOBAL INHERITANCE
+   -------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+
+*,
+html, body,
+button, input, select, textarea,
+h1, h2, h3, h4, h5, h6,
+p, span, a, label, table, code {
+  font-family: "IBM Plex Mono", monospace !important;
+}
+
+*:focus-visible {
+  outline: 3px dashed var(--immich-ui-info-500) !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 12px var(--immich-ui-info-500) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   1. NEON TOKEN OVERRIDES (real Immich ramps, recolored)
+   -------------------------------------------------------------------------- */
+@theme inline {
+  --color-primary-50: var(--immich-ui-primary-50);
+  --color-primary-100: var(--immich-ui-primary-100);
+  --color-primary-200: var(--immich-ui-primary-200);
+  --color-primary-300: var(--immich-ui-primary-300);
+  --color-primary-400: var(--immich-ui-primary-400);
+  --color-primary-500: var(--immich-ui-primary-500);
+  --color-primary-600: var(--immich-ui-primary-600);
+  --color-primary-700: var(--immich-ui-primary-700);
+  --color-primary-800: var(--immich-ui-primary-800);
+  --color-primary-900: var(--immich-ui-primary-900);
+  --color-primary-950: var(--immich-ui-primary-950);
+
+  --color-success-50: var(--immich-ui-success-50);
+  --color-success-100: var(--immich-ui-success-100);
+  --color-success-200: var(--immich-ui-success-200);
+  --color-success-300: var(--immich-ui-success-300);
+  --color-success-400: var(--immich-ui-success-400);
+  --color-success-500: var(--immich-ui-success-500);
+  --color-success-600: var(--immich-ui-success-600);
+  --color-success-700: var(--immich-ui-success-700);
+  --color-success-800: var(--immich-ui-success-800);
+  --color-success-900: var(--immich-ui-success-900);
+  --color-success-950: var(--immich-ui-success-950);
+
+  --color-danger-50: var(--immich-ui-danger-50);
+  --color-danger-100: var(--immich-ui-danger-100);
+  --color-danger-200: var(--immich-ui-danger-200);
+  --color-danger-300: var(--immich-ui-danger-300);
+  --color-danger-400: var(--immich-ui-danger-400);
+  --color-danger-500: var(--immich-ui-danger-500);
+  --color-danger-600: var(--immich-ui-danger-600);
+  --color-danger-700: var(--immich-ui-danger-700);
+  --color-danger-800: var(--immich-ui-danger-800);
+  --color-danger-900: var(--immich-ui-danger-900);
+  --color-danger-950: var(--immich-ui-danger-950);
+
+  --color-warning-50: var(--immich-ui-warning-50);
+  --color-warning-100: var(--immich-ui-warning-100);
+  --color-warning-200: var(--immich-ui-warning-200);
+  --color-warning-300: var(--immich-ui-warning-300);
+  --color-warning-400: var(--immich-ui-warning-400);
+  --color-warning-500: var(--immich-ui-warning-500);
+  --color-warning-600: var(--immich-ui-warning-600);
+  --color-warning-700: var(--immich-ui-warning-700);
+  --color-warning-800: var(--immich-ui-warning-800);
+  --color-warning-900: var(--immich-ui-warning-900);
+  --color-warning-950: var(--immich-ui-warning-950);
+
+  --color-info-50: var(--immich-ui-info-50);
+  --color-info-100: var(--immich-ui-info-100);
+  --color-info-200: var(--immich-ui-info-200);
+  --color-info-300: var(--immich-ui-info-300);
+  --color-info-400: var(--immich-ui-info-400);
+  --color-info-500: var(--immich-ui-info-500);
+  --color-info-600: var(--immich-ui-info-600);
+  --color-info-700: var(--immich-ui-info-700);
+  --color-info-800: var(--immich-ui-info-800);
+  --color-info-900: var(--immich-ui-info-900);
+  --color-info-950: var(--immich-ui-info-950);
+
+  --color-light-50: var(--immich-ui-light-50);
+  --color-light-100: var(--immich-ui-light-100);
+  --color-light-200: var(--immich-ui-light-200);
+  --color-light-300: var(--immich-ui-light-300);
+  --color-light-400: var(--immich-ui-light-400);
+  --color-light-500: var(--immich-ui-light-500);
+  --color-light-600: var(--immich-ui-light-600);
+  --color-light-700: var(--immich-ui-light-700);
+  --color-light-800: var(--immich-ui-light-800);
+  --color-light-900: var(--immich-ui-light-900);
+  --color-light-950: var(--immich-ui-light-950);
+
+  --color-dark-50: var(--immich-ui-dark-50);
+  --color-dark-100: var(--immich-ui-dark-100);
+  --color-dark-200: var(--immich-ui-dark-200);
+  --color-dark-300: var(--immich-ui-dark-300);
+  --color-dark-400: var(--immich-ui-dark-400);
+  --color-dark-500: var(--immich-ui-dark-500);
+  --color-dark-600: var(--immich-ui-dark-600);
+  --color-dark-700: var(--immich-ui-dark-700);
+  --color-dark-800: var(--immich-ui-dark-800);
+  --color-dark-900: var(--immich-ui-dark-900);
+  --color-dark-950: var(--immich-ui-dark-950);
+
+  --color-primary: var(--immich-ui-primary-500);
+  --color-success: var(--immich-ui-success-500);
+  --color-danger: var(--immich-ui-danger-500);
+  --color-warning: var(--immich-ui-warning-500);
+  --color-info: var(--immich-ui-info-500);
+  --color-light: var(--immich-ui-light);
+  --color-dark: var(--immich-ui-dark);
+  --color-muted: var(--immich-ui-muted);
+  --color-subtle: var(--immich-ui-gray);
+}
+
+:root, .light {
+  /* PRIMARY → neon magenta (buttons, active nav, links, upload progress) */
+  --immich-ui-primary-500: #cc00ff;
+  --immich-ui-primary-600: #a300cc;
+  --immich-ui-primary-700: #7a0099;
+  --immich-ui-primary-400: #e64dff;
+  --immich-ui-primary-300: #f080ff;
+
+  /* SUCCESS → neon green (shared/backed-up/complete) */
+  --immich-ui-success-500: #00ff41;
+  --immich-ui-success-600: #00cc34;
+
+  /* DANGER → neon red/pink (delete, failed jobs) */
+  --immich-ui-danger-500: #ff0055;
+  --immich-ui-danger-600: #cc0044;
+
+  /* WARNING → neon orange (quota, sync paused) */
+  --immich-ui-warning-500: #ff9500;
+  --immich-ui-warning-600: #cc7700;
+
+  /* INFO → neon cyan (tooltips, map pins, header accents) */
+  --immich-ui-info-500: #00c3ff;
+  --immich-ui-info-600: #009ccc;
+
+  /* Extra neon accents used below, not part of the real ramp but derived from it */
+  --neon-sidebar: #aa00ff;
+  --neon-sidebar-2: #dd00ff;
+  --neon-card: #39ff14;
+  --neon-input: #ff6600;
+  --neon-input-2: #ffaa00;
+
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark {
+  --immich-ui-primary-500: #e600ff;
+  --immich-ui-success-500: #39ff14;
+  --immich-ui-danger-500: #ff2670;
+  --immich-ui-warning-500: #ffab1a;
+  --immich-ui-info-500: #33d6ff;
+}
+
+/* --------------------------------------------------------------------------
+   2. KEYFRAME ANIMATIONS (available for use throughout)
+   -------------------------------------------------------------------------- */
+@keyframes neon-pulse {
+  0%, 100% { box-shadow: 0 0 10px currentColor; }
+  50%      { box-shadow: 0 0 25px currentColor, 0 0 40px currentColor; }
+}
+
+@keyframes neon-scan {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes neon-flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+  20%, 22%, 24%, 55% { opacity: 0.6; }
+}
+
+@keyframes float-glow {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
+}
+
+/* --------------------------------------------------------------------------
+   3. BASE LAYOUT & BACKGROUND
+   -------------------------------------------------------------------------- */
+html, body, main, #svelte, div.page,
+div[class*="bg-immich-bg"],
+div[class*="bg-immich-dark-bg"] {
+  background-color: #000000 !important;
+  color: #ffffff;
+  transition: background-color 0.3s var(--ease-smooth) !important;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--immich-ui-primary-500), var(--immich-ui-info-500), var(--immich-ui-warning-500), var(--immich-ui-primary-500));
+  background-size: 200% 100%;
+  animation: neon-scan 4s linear infinite;
+  box-shadow: 0 0 20px var(--immich-ui-primary-500);
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* --------------------------------------------------------------------------
+   4. HEADER & NAVIGATION (INFO — CYAN)
+   -------------------------------------------------------------------------- */
+header, nav {
+  position: relative !important;
+  background: linear-gradient(180deg, var(--immich-ui-info-500) 0%, var(--immich-ui-info-600) 100%) !important;
+  border-bottom: 3px solid var(--immich-ui-info-500) !important;
+  box-shadow: 0 0 20px color-mix(in oklab, var(--immich-ui-info-500) 50%, transparent);
+  transition: box-shadow 0.3s ease !important;
+}
+
+header::after, nav::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -3px;
+  height: 3px;
+  background: var(--immich-ui-info-400);
+  box-shadow: 0 0 15px var(--immich-ui-info-400);
+  animation: neon-pulse 2.5s ease-in-out infinite;
+}
+
+header [class*="rounded-full"],
+nav [class*="rounded-full"],
+button[class*="rounded-full"] {
+  background: radial-gradient(circle, var(--immich-ui-info-400), var(--immich-ui-info-600)) !important;
+  border: 2px solid var(--immich-ui-info-500) !important;
+  box-shadow: 0 0 10px var(--immich-ui-info-500), inset 0 0 10px color-mix(in oklab, var(--immich-ui-info-500) 30%, transparent) !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+  transition: all 0.2s var(--ease-spring) !important;
+}
+
+header [class*="rounded-full"]:hover,
+nav [class*="rounded-full"]:hover,
+button[class*="rounded-full"]:hover {
+  background: radial-gradient(circle, var(--immich-ui-info-400), var(--immich-ui-info-500)) !important;
+  transform: scale(1.12) rotate(3deg);
+  box-shadow: 0 0 25px var(--immich-ui-info-500) !important;
+}
+
+/* --------------------------------------------------------------------------
+   5. SIDEBAR & PANELS (VIOLET)
+   -------------------------------------------------------------------------- */
+aside {
+  position: relative !important;
+  background: linear-gradient(90deg, var(--neon-sidebar) 0%, var(--neon-sidebar-2) 100%) !important;
+  border-right: 3px solid var(--neon-sidebar) !important;
+  box-shadow: 4px 0 30px color-mix(in oklab, var(--neon-sidebar) 50%, transparent) !important;
+}
+
+aside a, aside button {
+  position: relative !important;
+  background: color-mix(in oklab, var(--neon-sidebar) 20%, transparent) !important;
+  border: 1px solid var(--neon-sidebar-2) !important;
+  border-radius: 8px !important;
+  color: #ffffff !important;
+  margin: 3px 6px !important;
+  transition: all 0.22s var(--ease-spring) !important;
+}
+
+aside a::before, aside button::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 15%; bottom: 15%;
+  width: 4px;
+  border-radius: 0 4px 4px 0;
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+aside a:hover, aside button:hover {
+  background: color-mix(in oklab, var(--neon-sidebar-2) 40%, transparent) !important;
+  border-color: var(--neon-sidebar) !important;
+  transform: translateX(6px);
+  box-shadow: 0 0 12px var(--neon-sidebar-2) !important;
+}
+
+aside a:hover::before, aside button:hover::before {
+  background: var(--neon-sidebar-2);
+  box-shadow: 0 0 10px var(--neon-sidebar-2);
+  width: 6px;
+}
+
+aside a[aria-current="page"],
+aside a[aria-selected="true"],
+aside button[aria-current="page"],
+aside button[aria-selected="true"] {
+  background: color-mix(in oklab, var(--neon-sidebar-2) 60%, transparent) !important;
+  border: 2px solid var(--neon-sidebar-2) !important;
+  box-shadow: inset 4px 0 0 var(--neon-sidebar), 0 0 15px var(--neon-sidebar-2) !important;
+  animation: neon-pulse 3s ease-in-out infinite;
+}
+
+aside svg {
+  color: #ffffff !important;
+  transition: all 0.2s var(--ease-spring) !important;
+}
+
+aside a:hover svg, aside button:hover svg {
+  color: var(--neon-sidebar-2) !important;
+  transform: scale(1.2) rotate(5deg);
+}
+
+aside .rounded-xl, aside [class*="rounded-xl"] {
+  background: color-mix(in oklab, var(--neon-sidebar) 15%, transparent) !important;
+  border: 2px solid var(--neon-sidebar-2) !important;
+  box-shadow: inset 0 0 15px color-mix(in oklab, var(--neon-sidebar) 30%, transparent) !important;
+}
+
+aside [role="progressbar"] {
+  background: linear-gradient(90deg, var(--neon-sidebar), var(--neon-sidebar-2)) !important;
+  background-size: 200% 100%;
+  animation: neon-scan 2s linear infinite;
+  box-shadow: 0 0 15px var(--neon-sidebar-2) !important;
+}
+
+/* --------------------------------------------------------------------------
+   6. CARDS & THUMBNAILS (SUCCESS — EMERALD/GREEN)
+   -------------------------------------------------------------------------- */
+[data-testid*="memory"],
+[data-testid="thumbnail"],
+div[class*="thumbnail"],
+div[class*="memory"],
+div[class*="rounded-3xl"]:has(img),
+div[class*="rounded-2xl"]:has(img) {
+  border-radius: 8px !important;
+  border: 2px solid var(--neon-card) !important;
+  box-shadow: 0 0 10px color-mix(in oklab, var(--neon-card) 40%, transparent) !important;
+  transition: all 0.2s var(--ease-spring) !important;
+}
+
+div[class*="memory"] img,
+[data-testid*="memory"] img,
+[data-testid="thumbnail"] img {
+  object-fit: cover !important;
+  transition: filter 0.25s ease !important;
+}
+
+[data-testid="thumbnail"]:hover,
+div[class*="thumbnail"]:hover {
+  border-color: var(--immich-ui-success-500) !important;
+  box-shadow: 0 0 20px var(--immich-ui-success-500), inset 0 0 15px color-mix(in oklab, var(--neon-card) 30%, transparent) !important;
+  z-index: 10;
+  transform: scale(1.05);
+}
+
+[data-testid="thumbnail"]:hover img {
+  filter: saturate(1.3) brightness(1.05);
+}
+
+/* --------------------------------------------------------------------------
+   7. SETTINGS PANELS & ACCORDIONS (SUCCESS + VIOLET)
+   -------------------------------------------------------------------------- */
+:where(main div[class*="rounded-2xl"],
+main div[class*="rounded-3xl"],
+section[class*="rounded-2xl"]),
+:where(details,
+section:has(button[aria-expanded]),
+div[class*="rounded-xl"]:has(button[aria-expanded])) {
+  border-radius: 12px !important;
+  border: 2px solid var(--neon-card) !important;
+  transition: box-shadow 0.25s ease !important;
+}
+
+:where(main div[class*="rounded-2xl"],
+main div[class*="rounded-3xl"],
+section[class*="rounded-2xl"]) {
+  background: color-mix(in oklab, var(--neon-card) 8%, transparent) !important;
+  box-shadow: inset 0 0 20px color-mix(in oklab, var(--neon-card) 15%, transparent) !important;
+}
+
+:where(details,
+section:has(button[aria-expanded]),
+div[class*="rounded-xl"]:has(button[aria-expanded])) {
+  background: color-mix(in oklab, var(--neon-sidebar) 8%, transparent) !important;
+  border-color: var(--neon-sidebar-2) !important;
+}
+
+:where(details > summary, button[aria-expanded]) {
+  background: linear-gradient(180deg, color-mix(in oklab, var(--neon-sidebar) 30%, transparent), color-mix(in oklab, var(--neon-sidebar-2) 20%, transparent)) !important;
+  border: 2px solid var(--neon-sidebar) !important;
+  border-radius: 8px !important;
+  color: #ffffff !important;
+  padding: 12px 16px !important;
+  box-shadow: 0 0 10px color-mix(in oklab, var(--neon-sidebar-2) 30%, transparent) !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer;
+}
+
+:where(details > summary, button[aria-expanded]):hover {
+  background: linear-gradient(180deg, color-mix(in oklab, var(--neon-sidebar-2) 40%, transparent), color-mix(in oklab, var(--neon-sidebar-2) 30%, transparent)) !important;
+  border-color: var(--neon-sidebar) !important;
+  box-shadow: 0 0 20px var(--neon-sidebar-2) !important;
+  transform: translateY(-2px);
+}
+
+details[open] > summary {
+  animation: neon-pulse 3s ease-in-out infinite;
+}
+
+details details > summary,
+details div[class*="rounded-lg"],
+details div[class*="rounded-xl"],
+details [class*="bg-immich-gray"],
+details [class*="bg-immich-dark-gray"] {
+  background: color-mix(in oklab, var(--neon-sidebar) 12%, transparent) !important;
+  border: 1px solid var(--neon-sidebar-2) !important;
+}
+
+details details > summary:hover {
+  background: color-mix(in oklab, var(--neon-sidebar-2) 18%, transparent) !important;
+  border-color: var(--neon-sidebar) !important;
+  box-shadow: 0 0 12px var(--neon-sidebar-2) !important;
+}
+
+:where(details summary, button[aria-expanded]) svg {
+  color: #cccccc !important;
+  transition: transform 0.2s var(--ease-spring), color 0.2s ease !important;
+}
+
+:where(details summary, button[aria-expanded]):hover svg {
+  color: var(--neon-sidebar-2) !important;
+  transform: scale(1.15) rotate(45deg);
+}
+
+/* --------------------------------------------------------------------------
+   8. FORM ELEMENTS & INPUTS (ORANGE)
+   -------------------------------------------------------------------------- */
+input, textarea, select,
+input[placeholder*="Search"] {
+  background: linear-gradient(180deg, color-mix(in oklab, var(--neon-input) 15%, transparent), color-mix(in oklab, var(--neon-input-2) 10%, transparent)) !important;
+  color: #ffffff !important;
+  border: 2px solid var(--neon-input-2) !important;
+  border-radius: 8px !important;
+  box-shadow: inset 0 0 10px color-mix(in oklab, var(--neon-input) 20%, transparent) !important;
+  transition: all 0.2s var(--ease-smooth) !important;
+  font-weight: 500;
+}
+
+input:hover, textarea:hover, select:hover {
+  border-color: var(--neon-input) !important;
+  box-shadow: inset 0 0 12px color-mix(in oklab, var(--neon-input) 40%, transparent) !important;
+}
+
+input:focus, textarea:focus, select:focus,
+input[placeholder*="Search"]:focus {
+  border-color: var(--immich-ui-warning-500) !important;
+  box-shadow: 0 0 15px var(--immich-ui-warning-500), inset 0 0 10px color-mix(in oklab, var(--neon-input-2) 30%, transparent) !important;
+  outline: none !important;
+  background: linear-gradient(180deg, color-mix(in oklab, var(--immich-ui-warning-500) 20%, transparent), color-mix(in oklab, var(--neon-input-2) 15%, transparent)) !important;
+}
+
+div:has(> input[placeholder*="Search"]) > button,
+div:has(> input[placeholder*="Search"]) > span,
+div:has(> input[placeholder*="Search"]) svg {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Toggles */
+input[type="checkbox"], input[type="radio"] {
+  accent-color: var(--immich-ui-warning-500) !important;
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  transition: transform 0.15s var(--ease-spring) !important;
+}
+
+input[type="checkbox"]:checked, input[type="radio"]:checked {
+  animation: neon-pulse 1.5s ease-in-out infinite;
+}
+
+/* Sliders */
+input[type="range"] {
+  accent-color: var(--immich-ui-primary-500) !important;
+}
+
+/* --------------------------------------------------------------------------
+   9. BUTTONS (PRIMARY — MAGENTA)
+   -------------------------------------------------------------------------- */
+:where(header, nav, main, section, details) button:not(
+  [class*="bg-immich-"], [class*="bg-red-"], [class*="bg-green-"], [class*="bg-blue-"], [class*="bg-yellow-"],
+  [class*="bg-purple-"], [class*="bg-indigo-"], [class*="bg-pink-"], [class*="bg-orange-"],
+  [class*="bg-teal-"], [class*="bg-cyan-"], [class*="bg-amber-"], [class*="bg-lime-"],
+  [class*="bg-emerald-"], [class*="bg-sky-"], [class*="bg-violet-"], [class*="bg-fuchsia-"],
+  [class*="bg-rose-"], [class*="bg-slate-"], [class*="bg-zinc-"], [class*="bg-neutral-"],
+  [class*="bg-stone-"], [class*="bg-gray-"], [class*="bg-white"], [class*="bg-transparent"],
+  [class*="text-red-"], [class*="rounded-full"]
+) {
+  background: color-mix(in oklab, var(--immich-ui-primary-500) 30%, transparent) !important;
+  border: 2px solid var(--immich-ui-primary-500) !important;
+  border-radius: 8px !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 8px var(--immich-ui-primary-500) !important;
+  transition: all 0.22s var(--ease-spring) !important;
+}
+
+:where(header, nav, main, section, details) button:not(
+  [class*="bg-immich-"], [class*="bg-red-"], [class*="bg-green-"], [class*="bg-blue-"], [class*="bg-yellow-"],
+  [class*="bg-purple-"], [class*="bg-indigo-"], [class*="bg-pink-"], [class*="bg-orange-"],
+  [class*="bg-teal-"], [class*="bg-cyan-"], [class*="bg-amber-"], [class*="bg-lime-"],
+  [class*="bg-emerald-"], [class*="bg-sky-"], [class*="bg-violet-"], [class*="bg-fuchsia-"],
+  [class*="bg-rose-"], [class*="bg-slate-"], [class*="bg-zinc-"], [class*="bg-neutral-"],
+  [class*="bg-stone-"], [class*="bg-gray-"], [class*="bg-white"], [class*="bg-transparent"],
+  [class*="text-red-"], [class*="rounded-full"]
+):hover {
+  background: linear-gradient(180deg, var(--immich-ui-primary-500), var(--immich-ui-primary-600)) !important;
+  border-color: var(--immich-ui-primary-400) !important;
+  box-shadow: 0 0 20px var(--immich-ui-primary-500) !important;
+  transform: translateY(-3px) scale(1.05);
+}
+
+:where(header, nav, main, section, details) button:not(
+  [class*="bg-immich-"], [class*="bg-red-"], [class*="bg-green-"], [class*="bg-blue-"], [class*="bg-yellow-"],
+  [class*="bg-purple-"], [class*="bg-indigo-"], [class*="bg-pink-"], [class*="bg-orange-"],
+  [class*="bg-teal-"], [class*="bg-cyan-"], [class*="bg-amber-"], [class*="bg-lime-"],
+  [class*="bg-emerald-"], [class*="bg-sky-"], [class*="bg-violet-"], [class*="bg-fuchsia-"],
+  [class*="bg-rose-"], [class*="bg-slate-"], [class*="bg-zinc-"], [class*="bg-neutral-"],
+  [class*="bg-stone-"], [class*="bg-gray-"], [class*="bg-white"], [class*="bg-transparent"],
+  [class*="text-red-"], [class*="rounded-full"]
+):active {
+  transform: translateY(0) scale(0.95);
+}
+
+:where(header, nav, main, section, details) button:not([class*="rounded-full"]) svg {
+  transition: transform 0.2s var(--ease-spring), color 0.2s ease !important;
+}
+
+:where(header, nav, main, section, details) button:not([class*="rounded-full"]):hover svg {
+  color: var(--immich-ui-primary-400) !important;
+  transform: scale(1.15) rotate(15deg);
+}
+
+/* Primary Buttons */
+button.bg-immich-primary,
+button.bg-immich-dark-primary,
+.bg-immich-primary,
+.bg-immich-dark-primary {
+  background: linear-gradient(180deg, var(--immich-ui-primary-500), var(--immich-ui-primary-600)) !important;
+  border: 2px solid var(--immich-ui-primary-400) !important;
+  color: #000000 !important;
+  box-shadow: 0 0 15px var(--immich-ui-primary-500), inset 0 0 10px color-mix(in oklab, var(--immich-ui-primary-500) 40%, transparent) !important;
+  font-weight: 700;
+  transition: all 0.25s var(--ease-spring) !important;
+}
+
+button.bg-immich-primary:hover,
+button.bg-immich-dark-primary:hover {
+  box-shadow: 0 0 30px var(--immich-ui-primary-500), 0 0 40px var(--immich-ui-primary-400) !important;
+  transform: translateY(-3px) scale(1.08);
+}
+
+/* Disabled state — flicker to show it's inert */
+button:disabled {
+  opacity: 0.4 !important;
+  filter: grayscale(0.6);
+  box-shadow: none !important;
+  cursor: not-allowed;
+}
+
+/* Loading spinner */
+[class*="spinner"], [role="progressbar"][class*="circle"] {
+  animation: neon-flicker 2s linear infinite;
+}
+
+/* --------------------------------------------------------------------------
+   10. MODALS & MENUS (PRIMARY — MAGENTA/VIOLET BLEND)
+   -------------------------------------------------------------------------- */
+dialog,
+div[role="dialog"],
+div[class*="modal"] {
+  background: linear-gradient(145deg, color-mix(in oklab, var(--immich-ui-primary-500) 10%, transparent), color-mix(in oklab, var(--neon-sidebar) 10%, transparent)) !important;
+  border: 3px solid var(--immich-ui-primary-500) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 0 40px var(--immich-ui-primary-500), 0 0 60px color-mix(in oklab, var(--immich-ui-primary-500) 40%, transparent) !important;
+  animation: float-glow 4s ease-in-out infinite;
+}
+
+div[class*="backdrop"],
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.95) !important;
+  backdrop-filter: blur(12px) !important;
+  transition: backdrop-filter 0.3s ease !important;
+}
+
+[role="menu"],
+[role="listbox"],
+div[class*="dropdown-content"] {
+  background: color-mix(in oklab, var(--immich-ui-primary-500) 12%, transparent) !important;
+  border: 2px solid var(--immich-ui-primary-500) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 0 25px var(--immich-ui-primary-500) !important;
+}
+
+[role="menuitem"]:hover,
+[role="option"]:hover {
+  background: color-mix(in oklab, var(--immich-ui-primary-500) 25%, transparent) !important;
+  color: var(--immich-ui-primary-400) !important;
+  box-shadow: 0 0 15px var(--immich-ui-primary-500) !important;
+}
+
+/* --------------------------------------------------------------------------
+   11. ALERTS & TOASTS (DANGER — RED, WARNING — ORANGE, INFO — CYAN)
+   -------------------------------------------------------------------------- */
+[role="alert"],
+.alert,
+[class*="error"],
+[class*="warning"] {
+  background: color-mix(in oklab, var(--immich-ui-danger-500) 15%, transparent) !important;
+  border-left: 4px solid var(--immich-ui-danger-500) !important;
+  border-radius: 4px !important;
+  box-shadow: 0 0 15px color-mix(in oklab, var(--immich-ui-danger-500) 30%, transparent) !important;
+  animation: neon-pulse 2s ease-in-out infinite;
+}
+
+[class*="error"] {
+  border-color: var(--immich-ui-danger-500) !important;
+}
+
+[class*="warning"] {
+  border-color: var(--immich-ui-warning-500) !important;
+  background: color-mix(in oklab, var(--immich-ui-warning-500) 15%, transparent) !important;
+}
+
+[role="status"],
+.info,
+[class*="info"] {
+  background: color-mix(in oklab, var(--immich-ui-info-500) 12%, transparent) !important;
+  border-left: 4px solid var(--immich-ui-info-500) !important;
+  color: var(--immich-ui-info-500) !important;
+  box-shadow: 0 0 12px color-mix(in oklab, var(--immich-ui-info-500) 25%, transparent) !important;
+}
+
+/* Toast slide-in */
+[class*="toast"] {
+  animation: float-glow 3s ease-in-out infinite;
+}
+
+/* --------------------------------------------------------------------------
+   12. PROGRESS BARS & QUOTA (WARNING — ORANGE GRADIENT SCAN)
+   -------------------------------------------------------------------------- */
+[role="progressbar"] {
+  background: linear-gradient(90deg, var(--immich-ui-warning-500), var(--immich-ui-danger-500), var(--immich-ui-warning-500)) !important;
+  background-size: 200% 100%;
+  animation: neon-scan 3s linear infinite;
+  box-shadow: 0 0 15px var(--immich-ui-warning-500) !important;
+}
+
+/* --------------------------------------------------------------------------
+   13. TEXT SELECTION & SCROLLBARS
+   -------------------------------------------------------------------------- */
+::selection {
+  background: var(--immich-ui-warning-500) !important;
+  color: #000000 !important;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--immich-ui-primary-500) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000 !important;
+}
+
+::-webkit-scrollbar-track-piece {
+  background: #000000 !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--immich-ui-primary-500), var(--neon-sidebar)) !important;
+  border-radius: 8px;
+  border: 2px solid #000000 !important;
+  box-shadow: 0 0 10px var(--immich-ui-primary-500);
+  transition: box-shadow 0.2s ease !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--immich-ui-primary-400), var(--neon-sidebar-2)) !important;
+  box-shadow: 0 0 15px var(--immich-ui-primary-500);
+}
+
+/* width */
+.immich-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  visibility: hidden;
+}
+/* Track */
+.immich-scrollbar::-webkit-scrollbar-track {
+  background-color: var(--immich-ui-light-100);
+  border-radius: 4px;
+  visibility: hidden;
+}
+/* Handle */
+.immich-scrollbar::-webkit-scrollbar-thumb {
+  background-color: color-mix(in oklab, var(--immich-ui-light-600) 40%, transparent);
+  border-radius: 4px;
+  visibility: hidden;
+}
+/* Handle on hover */
+.immich-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: color-mix(in oklab, var(--immich-ui-primary-500) 70%, transparent);
+}
+.immich-scrollbar:hover::-webkit-scrollbar,
+.immich-scrollbar:active::-webkit-scrollbar,
+.immich-scrollbar:hover::-webkit-scrollbar-track,
+.immich-scrollbar:active::-webkit-scrollbar-track,
+.immich-scrollbar:hover::-webkit-scrollbar-thumb,
+.immich-scrollbar:active::-webkit-scrollbar-thumb {
+  visibility: visible;
+}
